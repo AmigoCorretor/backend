@@ -1,28 +1,49 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToOne,
-    JoinColumn,
-} from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Favorite } from './Favorite'
+import { Post } from './Post'
 
-import { Profile } from "./profile"
-
-@Entity("tb_user")
+@Entity('tb_user')
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id?: number
 
-    @Column()
-    nome: string
+  @Column()
+  email?: string
 
-    @Column()
-    email: string
-    
-    @Column()
-    idade: number
+  @Column()
+  password?: string
 
-    @OneToOne(() => Profile)
-    @JoinColumn({name: 'id_profile'})
-    profile: Profile
+  @Column()
+  photo?: string
+
+  @Column()
+  name?: string
+
+  @Column()
+  isRealtor?: boolean
+
+  @Column()
+  creci?: string
+
+  @Column()
+  stars?: number
+
+  @Column()
+  completedSells?: number
+
+  @Column()
+  completedRents?: number
+
+  @Column()
+  phone?: string
+
+  @OneToMany(() => Post, post => post.user)
+  posts?: Post[]
+
+  @OneToMany(() => Favorite, favorite => favorite.user)
+  favorites?: Favorite[]
+
+  // @OneToOne(() => Profile)
+  // @JoinColumn({ name: 'id_profile' })
+  // profile?: Profile
 }
