@@ -5,43 +5,68 @@ import { Post } from './Post'
 @Entity('tb_user')
 export class User {
   @PrimaryGeneratedColumn()
-  id?: number
+  id!: number
 
   @Column()
-  email?: string
+  email!: string
 
   @Column()
-  password?: string
+  password!: string
 
-  @Column()
-  photo?: string
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  photo!: string
 
-  @Column()
-  name?: string
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  name!: string
 
-  @Column()
-  isRealtor?: boolean
+  @Column({
+    type: 'boolean',
+    nullable: true
+  })
+  isRealtor!: boolean
 
-  @Column()
-  creci?: string
+  @Column({
+    type: 'varchar',
+    unique: true,
+    nullable: true
+  })
+  creci!: string
 
-  @Column()
-  stars?: number
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  stars!: number
 
-  @Column()
-  completedSells?: number
+  @Column({
+    type: 'int',
+    nullable: true
+  })
+  completedSells!: number
 
-  @Column()
-  completedRents?: number
+  @Column({
+    type: 'int',
+    nullable: true
+  })
+  completedRents!: number
 
-  @Column()
-  phone?: string
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  phone!: string
 
   @OneToMany(() => Post, post => post.user)
-  posts?: Post[]
+  posts!: Post[]
 
   @OneToMany(() => Favorite, favorite => favorite.user)
-  favorites?: Favorite[]
+  favorites!: Favorite[]
 
   // @OneToOne(() => Profile)
   // @JoinColumn({ name: 'id_profile' })
