@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { myDataSource } from './data-source'
 import usersRoutes from './routes/users'
+import postsRoutes from './routes/posts'
 
 // establish database connection
 myDataSource
@@ -18,6 +19,7 @@ app.use(express.json())
 
 // routes used
 app.use('/users', usersRoutes)
+app.use('/posts', postsRoutes)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: err.message })

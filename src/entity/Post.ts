@@ -13,36 +13,51 @@ import { User } from './User'
 @Entity('tb_post')
 export class Post {
   @PrimaryGeneratedColumn()
-  id?: number
+  id!: number
 
   @Column()
-  title?: string
+  title!: string
+
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  description!: string
 
   @Column()
-  description?: string
+  totalArea!: number
 
-  @Column()
-  totalArea?: string
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  usefulArea!: number
 
-  @Column()
-  usefulArea?: string
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  bathrooms!: number
 
-  @Column()
-  bathrooms?: string
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  bedrooms!: number
 
-  @Column()
-  bedrooms?: string
-
-  @Column()
-  suites?: string
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  suites!: number
 
   @ManyToOne(() => User, user => user.posts)
   @JoinColumn({ name: 'user_id' })
-  user?: User
+  user!: User
 
   @OneToMany(() => Image, image => image.post)
-  images?: Image[]
+  images!: Image[]
 
   @OneToMany(() => Favorite, favorite => favorite.post)
-  favorites?: Favorite[]
+  favorites!: Favorite[]
 }
