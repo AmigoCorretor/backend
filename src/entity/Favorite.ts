@@ -5,13 +5,13 @@ import { User } from './User'
 @Entity('tb_favorite')
 export class Favorite {
   @PrimaryGeneratedColumn()
-  id?: number
+  id!: number
 
   @ManyToOne(() => User, user => user.favorites)
   @JoinColumn({ name: 'user_id' })
-  user?: User
+  user!: User
 
   @ManyToOne(() => Post, post => post.favorites)
   @JoinColumn({ name: 'post_id' })
-  post?: Post
+  post!: Post
 }
