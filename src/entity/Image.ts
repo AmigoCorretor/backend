@@ -10,12 +10,12 @@ import { Post } from './Post'
 @Entity('tb_image')
 export class Image {
   @PrimaryGeneratedColumn()
-  id?: number
+  id!: number
 
   @Column()
-  link?: string
+  link!: string
 
   @ManyToOne(() => Post, post => post.images)
   @JoinColumn({ name: 'post_id' })
-  post?: Post
+  post!: Post
 }
