@@ -19,3 +19,5 @@ Then run the project using:
 ### `npm start`
 
 Now use Postman to reach to API's endpoints in http://localhost:3000/posts and http://localhost:3000/users
+
+On PG ADMIN create a new DB called AmigoCorretor

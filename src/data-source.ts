@@ -9,7 +9,7 @@ dotenv.config()
 export const myDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
-  port: 5432,
+  port: +process.env.DB_PORT!, 
   username: 'postgres',
   password: process.env.PG_PASSWORD,
   database: 'AmigoCorretor',
