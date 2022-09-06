@@ -11,16 +11,31 @@ export const createFavorite: RequestHandler = async (req, res, next) => {
 
 // get
 export const getFavorites: RequestHandler = async (req, res, next) => {
-  const favorites = await myDataSource.getRepository(Favorite).find()
-  // .createQueryBuilder('tb_favorite')
+  // const favorites = await myDataSource.getRepository(Favorite).find()
+
+  const favorites = await myDataSource
+    .getRepository(Favorite)
+    .createQueryBuilder('favorite')
+    .leftJoinAndSelect('favorite.user', 'user')
+    .leftJoinAndSelect('favorite.post', 'post')
+    .getMany()
+
   res.status(200).json(favorites)
 }
 
 // get
 export const getFavoriteById: RequestHandler = async (req, res, next) => {
-  const results = await myDataSource.getRepository(Favorite).findOneBy({
-    id: +req.params.id
-  })
+  // const results = await myDataSource.getRepository(Favorite).findOneBy({
+  //   id: +req.params.id
+  // })
+
+  const results = await myDataSource
+    .getRepository(Favorite)
+    .createQueryBuilder('favorite')
+    .leftJoinAndSelect('favorite.user', 'user')
+    .leftJoinAndSelect('favorite.post', 'post')
+    .getOne()
+
   res.status(200).json(results)
 }
 

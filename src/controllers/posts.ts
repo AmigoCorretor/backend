@@ -11,15 +11,31 @@ export const createPost: RequestHandler = async (req, res, next) => {
 
 // get
 export const getPosts: RequestHandler = async (req, res, next) => {
-  const posts = await myDataSource.getRepository(Post).find()
+  // const posts = await myDataSource.getRepository(Post).find()
+
+  const posts = await myDataSource
+    .getRepository(Post)
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.images', 'image')
+    .leftJoinAndSelect('post.favorites', 'favorite')
+    .getMany()
+
   res.status(200).json(posts)
 }
 
 // get
 export const getPostById: RequestHandler = async (req, res, next) => {
-  const results = await myDataSource.getRepository(Post).findOneBy({
-    id: +req.params.id
-  })
+  // const results = await myDataSource.getRepository(Post).findOneBy({
+  //   id: +req.params.id
+  // })
+
+  const results = await myDataSource
+    .getRepository(Post)
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.images', 'image')
+    .leftJoinAndSelect('post.favorites', 'favorite')
+    .getOne()
+
   res.status(200).json(results)
 }
 

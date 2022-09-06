@@ -11,15 +11,29 @@ export const createImage: RequestHandler = async (req, res, next) => {
 
 // get
 export const getImages: RequestHandler = async (req, res, next) => {
-  const images = await myDataSource.getRepository(Image).find()
+  // const images = await myDataSource.getRepository(Image).find()
+
+  const images = await myDataSource
+    .getRepository(Image)
+    .createQueryBuilder('image')
+    .leftJoinAndSelect('image.post', 'post')
+    .getMany()
+
   res.status(200).json(images)
 }
 
 // get
 export const getImageById: RequestHandler = async (req, res, next) => {
-  const results = await myDataSource.getRepository(Image).findOneBy({
-    id: +req.params.id
-  })
+  // const results = await myDataSource.getRepository(Image).findOneBy({
+  //   id: +req.params.id
+  // })
+
+  const results = await myDataSource
+    .getRepository(Image)
+    .createQueryBuilder('image')
+    .leftJoinAndSelect('image.post', 'post')
+    .getOne()
+
   res.status(200).json(results)
 }
 

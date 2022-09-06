@@ -11,15 +11,32 @@ export const createUser: RequestHandler = async (req, res, next) => {
 
 // get
 export const getUsers: RequestHandler = async (req, res, next) => {
-  const users = await myDataSource.getRepository(User).find()
+  // const users = await myDataSource.getRepository(User).find()
+
+  const users = await myDataSource
+    .getRepository(User)
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.posts', 'post')
+    .leftJoinAndSelect('user.favorites', 'favorite')
+    .getMany()
+
   res.status(200).json(users)
 }
 
 // get
 export const getUserById: RequestHandler = async (req, res, next) => {
-  const results = await myDataSource.getRepository(User).findOneBy({
-    id: +req.params.id
-  })
+  // const results = await myDataSource.getRepository(User).findOneBy({
+  //   id: +req.params.id
+  // })
+
+  const results = await myDataSource
+    .getRepository(User)
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.posts', 'post')
+    .leftJoinAndSelect('user.favorites', 'favorite')
+    .where('user.id = :id', { id: +req.params.id })
+    .getOne()
+
   res.status(200).json(results)
 }
 
