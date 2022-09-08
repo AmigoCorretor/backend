@@ -1,12 +1,32 @@
 import { RequestHandler } from 'express'
 import { myDataSource } from '../data-source'
 import { User } from '../entity/User'
+import * as bcrypt from 'bcrypt'
 
 // post
 export const createUser: RequestHandler = async (req, res, next) => {
-  const user = await myDataSource.getRepository(User).create(req.body)
-  const results = await myDataSource.getRepository(User).save(user)
-  res.status(201).json({ message: 'Created new user.', results })
+  let rawUser: User = req.body
+
+  bcrypt.hash(rawUser.password, 10, async (error, hash) => {
+    rawUser = { ...rawUser, password: hash }
+    if (error) {
+      res.status(500).json({ message: 'Error while creating user', error })
+    } else {
+      const user = myDataSource.getRepository(User).create(rawUser)
+      try {
+        const results = await myDataSource.getRepository(User).save(user)
+        res.status(201).json({ message: 'Created new user.', results })
+      } catch (e) {
+        res
+          .status(500)
+          .json({ message: 'Error while creating new user.', error: e })
+      }
+    }
+  })
+
+  // const user = await myDataSource.getRepository(User).create(req.body)
+  // const results = await myDataSource.getRepository(User).save(user)
+  // res.status(201).json({ message: 'Created new user.', results })
 }
 
 // get
