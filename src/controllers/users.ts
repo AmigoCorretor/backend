@@ -28,6 +28,26 @@ export const createUser: RequestHandler = async (req, res, next) => {
   // const results = await myDataSource.getRepository(User).save(user)
   // res.status(201).json({ message: 'Created new user.', results })
 }
+// login
+export const loginUser: RequestHandler = async (req, res, next) => {
+  let user: User = req.body
+
+  const results = await myDataSource
+    .getRepository(User)
+    .createQueryBuilder('user')
+    .where('user.email = :email', { email: req.body.email })
+    .getOne()
+
+  if (results) {
+    const isCorrectPassword = await bcrypt.compare(
+      user.password,
+      results.password
+    )
+    res.status(201).json({ message: 'User', isCorrectPassword })
+  } else {
+    res.status(403).json({ message: 'Email ou senha incorretos.' })
+  }
+}
 
 // get
 export const getUsers: RequestHandler = async (req, res, next) => {

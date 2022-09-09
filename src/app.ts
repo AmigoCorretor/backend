@@ -4,6 +4,7 @@ import usersRoutes from './routes/users'
 import postsRoutes from './routes/posts'
 import imagesRoutes from './routes/images'
 import favoritesRoutes from './routes/favorites'
+import cors from 'cors'
 
 // establish database connection
 myDataSource
@@ -18,6 +19,7 @@ myDataSource
 // create and setup express app
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 // routes used
 app.use('/users', usersRoutes)
