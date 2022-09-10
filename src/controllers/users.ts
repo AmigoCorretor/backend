@@ -2,6 +2,7 @@ import { RequestHandler } from 'express'
 import { myDataSource } from '../data-source'
 import { User } from '../entity/User'
 import * as bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 // post
 export const createUser: RequestHandler = async (req, res, next) => {
@@ -43,9 +44,14 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       user.password,
       results.password
     )
-    res.status(201).json({ message: 'User', isCorrectPassword })
+    if (isCorrectPassword) {
+      let token = jwt.sign({ ...results }, process.env.JWT_KEY!)
+      return res.status(201).json({ token })
+    } else {
+      res.status(401).json({ message: 'Incorrect password.' })
+    }
   } else {
-    res.status(403).json({ message: 'Email ou senha incorretos.' })
+    res.status(406).json({ message: 'User not found.' })
   }
 }
 
