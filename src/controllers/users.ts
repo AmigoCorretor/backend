@@ -45,8 +45,13 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       results.password
     )
     if (isCorrectPassword) {
-      let token = jwt.sign({ ...results }, process.env.JWT_KEY!)
-      return res.status(201).json({ token })
+      const payload = {
+        name: results.name,
+        email: results.email,
+        isRealtor: results.isRealtor
+      }
+      let token = jwt.sign({ id: results.id }, process.env.JWT_KEY!)
+      return res.status(201).json({ payload, token })
     } else {
       res.status(401).json({ message: 'Incorrect password.' })
     }
