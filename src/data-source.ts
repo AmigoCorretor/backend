@@ -8,11 +8,11 @@ dotenv.config()
 
 export const myDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: +process.env.DB_PORT!, 
-  username: 'postgres',
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT!,
+  username: process.env.DB_USERNAME,
   password: process.env.PG_PASSWORD,
-  database: 'AmigoCorretor',
+  database: process.env.DB_DATABASE,
   // entities: [".src/entity/*.ts"],
   // entities: [User, Product, Profile, Categoria, Produto, Usuario, Foto],
   entities: [User, Post, Image, Favorite],
