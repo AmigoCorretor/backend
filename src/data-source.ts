@@ -19,7 +19,12 @@ export const myDataSource = new DataSource({
   // entities: ["dist/**/*./entity/*.ts"],
   // entities: ["dist/**/*.entity.js"],
   logging: false,
-  synchronize: true
+  synchronize: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
   // migrations: [/*...*/],
 })
 
