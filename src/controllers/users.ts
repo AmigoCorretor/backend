@@ -87,6 +87,7 @@ export const getUserById: RequestHandler = async (req, res, next) => {
     .leftJoinAndSelect('user.posts', 'post')
     .leftJoinAndSelect('post.images', 'image')
     .leftJoinAndSelect('user.favorites', 'favorite')
+    .leftJoinAndSelect('favorite.user', 'userFav')
     .where('user.id = :id', { id: +req.params.id })
     .getOne()
 

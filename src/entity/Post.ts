@@ -24,6 +24,12 @@ export class Post {
   })
   description!: string
 
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  coordinates!: string
+
   @Column()
   totalArea!: number
 
