@@ -16,6 +16,12 @@ export class User {
 
   @Column({
     type: 'varchar',
+    nullable: true
+  })
+  bio!: string
+
+  @Column({
+    type: 'varchar',
     nullable: false
   })
   password!: string

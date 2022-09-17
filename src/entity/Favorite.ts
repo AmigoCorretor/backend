@@ -7,11 +7,11 @@ export class Favorite {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @ManyToOne(() => User, user => user.favorites)
+  @ManyToOne(() => User, user => user.favorites, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user!: User
 
-  @ManyToOne(() => Post, post => post.favorites)
+  @ManyToOne(() => Post, post => post.favorites, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'post_id' })
   post!: Post
 }

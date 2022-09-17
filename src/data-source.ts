@@ -21,9 +21,10 @@ export const myDataSource = new DataSource({
   logging: false,
   synchronize: true,
   extra: {
-    ssl: {
-      rejectUnauthorized: false
-    }
+    ssl:
+      process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false
   }
   // migrations: [/*...*/],
 })

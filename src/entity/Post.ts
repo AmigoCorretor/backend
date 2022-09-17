@@ -51,7 +51,7 @@ export class Post {
   })
   suites!: number
 
-  @ManyToOne(() => User, user => user.posts)
+  @ManyToOne(() => User, user => user.posts, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user!: User
 

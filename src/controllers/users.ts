@@ -3,6 +3,7 @@ import { myDataSource } from '../data-source'
 import { User } from '../entity/User'
 import * as bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { Image } from '../entity/Image'
 
 // post
 export const createUser: RequestHandler = async (req, res, next) => {
@@ -84,6 +85,7 @@ export const getUserById: RequestHandler = async (req, res, next) => {
     .getRepository(User)
     .createQueryBuilder('user')
     .leftJoinAndSelect('user.posts', 'post')
+    .leftJoinAndSelect('post.images', 'image')
     .leftJoinAndSelect('user.favorites', 'favorite')
     .where('user.id = :id', { id: +req.params.id })
     .getOne()
