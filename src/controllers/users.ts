@@ -101,8 +101,12 @@ export const updateUserById: RequestHandler = async (req, res, next) => {
   })
   if (user) {
     myDataSource.getRepository(User).merge(user, req.body)
-    const results = await myDataSource.getRepository(User).save(user)
-    res.status(200).json(results)
+    try {
+      const results = await myDataSource.getRepository(User).save(user)
+      res.status(200).json(results)
+    } catch (e) {
+      res.status(500).json({ message: 'Error while updation user info.' })
+    }
   } else {
     res.status(500).json({ message: 'User not found' })
   }
