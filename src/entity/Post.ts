@@ -28,7 +28,25 @@ export class Post {
     type: 'varchar',
     nullable: true
   })
-  coordinates!: string
+  type!: string
+
+  @Column({
+    type: 'float',
+    nullable: true
+  })
+  price!: number
+
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  latitude!: string
+
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  longitude!: string
 
   @Column()
   totalArea!: number
