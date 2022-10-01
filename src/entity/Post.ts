@@ -31,22 +31,34 @@ export class Post {
   type!: string
 
   @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  sellOrRent!: string
+
+  @Column({
+    type: 'boolean',
+    nullable: true
+  })
+  available!: boolean
+
+  @Column({
     type: 'float',
     nullable: true
   })
   price!: number
 
   @Column({
-    type: 'varchar',
+    type: 'float',
     nullable: true
   })
-  latitude!: string
+  latitude!: number
 
   @Column({
-    type: 'varchar',
+    type: 'float',
     nullable: true
   })
-  longitude!: string
+  longitude!: number
 
   @Column()
   totalArea!: number
