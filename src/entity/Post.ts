@@ -43,10 +43,10 @@ export class Post {
   available!: boolean
 
   @Column({
-    type: 'float',
+    type: 'varchar',
     nullable: true
   })
-  price!: number
+  price!: string
 
   @Column({
     type: 'float',
