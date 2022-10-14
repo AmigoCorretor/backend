@@ -18,6 +18,7 @@ export const getPosts: RequestHandler = async (req, res, next) => {
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.images', 'image')
     .leftJoinAndSelect('post.favorites', 'favorite')
+    .leftJoinAndSelect('post.user', 'user')
     .getMany()
 
   res.status(200).json(posts)
@@ -34,6 +35,7 @@ export const getPostById: RequestHandler = async (req, res, next) => {
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.images', 'image')
     .leftJoinAndSelect('post.favorites', 'favorite')
+    .leftJoinAndSelect('post.user', 'user')
     .getOne()
 
   res.status(200).json(results)
